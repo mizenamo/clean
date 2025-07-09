@@ -15,10 +15,15 @@ const Tracking = () => {
 
   const fetchVehicleTracking = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/waste/tracking');
+      const response = await axios.get('http://localhost:3001/api/waste/tracking');
       setVehicles(response.data);
     } catch (error) {
       console.error('Error fetching vehicle tracking:', error);
+      // Fallback to mock data if server is not available
+      setVehicles([
+        { vehicleId: 'KA01AB1234', lat: 12.9716, lng: 77.5946, status: 'On Route' },
+        { vehicleId: 'KA01CD5678', lat: 12.9716, lng: 77.5946, status: 'Collecting' },
+      ]);
     } finally {
       setLoading(false);
     }

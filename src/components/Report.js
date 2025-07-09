@@ -34,7 +34,7 @@ const Report = () => {
     setError('');
 
     try {
-      await axios.post('http://localhost:3000/api/waste/report', report);
+      await axios.post('http://localhost:3001/api/waste/report', report);
       setSuccess(true);
       setReport({
         type: 'missed_collection',
@@ -43,6 +43,7 @@ const Report = () => {
         priority: 'medium'
       });
     } catch (error) {
+      console.error('Error submitting report:', error);
       setError('Failed to submit report. Please try again.');
     } finally {
       setLoading(false);

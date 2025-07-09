@@ -27,18 +27,21 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', credentials);
+      console.log('Attempting login with:', credentials);
+      const response = await axios.post('http://localhost:3001/api/auth/login', credentials);
       const { token, ...userData } = response.data;
       
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
       
+      console.log('Login successful:', userData);
       return { success: true };
     } catch (error) {
+      console.error('Login error:', error.response?.data || error.message);
       return { 
         success: false, 
-        error: error.response?.data?.message || 'Login failed' 
+        error: error.response?.data?.message || 'Login failed. Please check your credentials.' 
       };
     }
   };

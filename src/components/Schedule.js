@@ -12,10 +12,16 @@ const Schedule = () => {
 
   const fetchSchedules = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/waste/schedules');
+      const response = await axios.get('http://localhost:3001/api/waste/schedules');
       setSchedules(response.data);
     } catch (error) {
       console.error('Error fetching schedules:', error);
+      // Fallback to mock data if server is not available
+      setSchedules([
+        { day: 'Monday', time: '7:00 AM - 12:45 PM', type: 'Organic Waste' },
+        { day: 'Wednesday', time: '7:00 AM - 12:45 PM', type: 'Recyclables' },
+        { day: 'Friday', time: '7:00 AM - 12:00 PM', type: 'Hazardous Waste' },
+      ]);
     } finally {
       setLoading(false);
     }
